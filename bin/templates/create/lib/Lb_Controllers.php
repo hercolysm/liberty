@@ -39,7 +39,7 @@ class Lb_Controllers{
             $param = str_replace("go","controller",$param);
             $_get .= $param."=".$value."&";
         }
-        print "index.php?".$_get;
+        return "index.php?".$_get;
     }
     
 }
