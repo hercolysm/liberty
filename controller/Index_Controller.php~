@@ -1,0 +1,18 @@
+<?php
+/**
+* Exemplo de código Index
+* @author Lucas Brito <lucas@libertynet.com.br>
+*/
+
+class Index_Controller{
+
+	public function init(){
+	        print "Ok";
+	}
+
+
+	public function index{
+	        print "A";
+	}	
+}
+?>

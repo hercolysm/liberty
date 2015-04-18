@@ -1,0 +1,52 @@
+<?php
+/**
+*	Controlador de Páginas
+*	@author Lucas Brito <lucas@libertynet.com.br>
+*/
+
+// Diretorio path
+$_path = __DIR__."/../";
+// Diretorio de views (pages)
+$_path_view = $_path."/public/view";
+// Diretorio de controller
+$_path_controller = $_path."/public/controller";
+// Diretorio de configurações
+$_path_conf = $_path."/conf";
+
+
+// Página (GO)
+$_page_go = isset($_GET['go']) ? $_GET['go'] : 'index';
+// Ação (action)
+$_page_action = isset($_GET['action']) ? $_GET['action'] : 'index';
+
+
+$__p = ucwords($_page_go)."_Controller";
+$controller = new $__p;
+echo $_page_action."()";
+$controller->init();
+$controller->$_page_action."()";
+
+
+/**
+Autoload de classes
+@param String $class_name Nome da classe
+*/
+function __autoload($class_name) {
+	global $_path_controller;
+	$dir = $_path_controller."/".$class_name.".php";
+	if(file_exists($dir)){
+		require_once $dir;
+	}else{
+		print "Página não encontrada $dir";
+		exit;
+	}
+}
+
+
+
+
+
+
+
+
+?>

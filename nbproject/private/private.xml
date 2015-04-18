@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/liberty/public/index.php</file>
+            <file>file:/var/www/html/liberty/lib/Lb_Controllers.php</file>
+            <file>file:/var/www/html/liberty/bin/templates/Controller.php</file>
+            <file>file:/var/www/html/liberty/bin/lb.php</file>
+            <file>file:/var/www/html/liberty/layout/index.phtml</file>
+            <file>file:/var/www/html/liberty/bin/conf.ini</file>
+            <file>file:/var/www/html/liberty/controller/Index_Controller.php</file>
+            <file>file:/var/www/html/liberty/views/Index/index.phtml</file>
+            <file>file:/var/www/html/liberty/controller/Lucas_Controller.php</file>
+        </group>
+    </open-files>
+</project-private>
