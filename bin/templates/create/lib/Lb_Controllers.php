@@ -31,5 +31,16 @@ class Lb_Controllers{
         ob_flush();
     }
     
+    
+    public function url($url = array("controller"=>"index","action"=>"index")){
+        //return "index.php?go=".$url["controller"]."&action=".$url["action"]
+        $_get = null;
+        foreach($url as $param => $value){
+            $param = str_replace("go","controller",$param);
+            $_get .= $param."=".$value."&";
+        }
+        print "index.php?".$_get;
+    }
+    
 }
 
