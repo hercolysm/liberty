@@ -56,6 +56,8 @@ $_page_action = (isset($_GET['action']) && !empty($_GET['action'])) ? $_GET['act
 // Nome do Controller
 $__p = $_page_go."_Controller";
 $_controller = new $__p;
+// Define PDO para pagina
+$_controller->_pdo = $PDO;
 // Inicia valor inicial do controlador
 $_controller->init();
 // Inicia ação

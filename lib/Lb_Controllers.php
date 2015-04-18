@@ -7,6 +7,7 @@
 class Lb_Controllers{
     var $__data;
     var $_layout = "index";
+    var $_pdo = null;
     public function __get($name){
         return $this->__data[$name];
     }
