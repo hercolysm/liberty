@@ -38,7 +38,16 @@ function __autoload($class_name) {
 	}
 }
 
-
+// Abre aquivo de configurações
+$_conf = parse_ini_file($_path_conf."/config.ini",true);
+// Verifica se existe database
+if(isset($_conf["database"])){
+    try{
+        $PDO = new PDO($_conf["database"]["adapter"].":host=".$_conf["database"]["host"].";dbname=".$_conf["database"]["dbname"].";port=".$_conf["database"]["port"],$_conf["database"]["user"],$_conf["database"]["pass"]);
+    }catch(PDOException $e){
+        print "Erro na conexão do banco de dados: ".$_conf["database"]["dbname"];
+    }
+}
 // Página (GO)
 $_page_go = (isset($_GET['go']) && !empty($_GET['go'])) ? ucwords($_GET['go']) : 'Index';
 
