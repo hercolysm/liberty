@@ -214,6 +214,8 @@ switch ($action){
                 @copy($_path_template."/create/layout.phtml",$cwd."/layout/index.phtml");
                 print "Copiando index [OK]\n";
                 @copy($_path_template."/create/index.php",$cwd."/public/index.php");
+                print "Copiando conf [OK]\n";
+                @copy($_path_template."/create/config.ini",$cwd."conf/");
                 print "Copiando view da action index [OK]\n";
                 @fopen($_path_views."/Index/index.phtml","w+");
                 print "Projeto Criado com sucesso [OK]\n";
