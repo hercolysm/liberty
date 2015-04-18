@@ -6,6 +6,7 @@
 
 class Lb_Controllers{
     var $__data;
+    var $_layout = "index";
     public function __get($name){
         return $this->__data[$name];
     }
@@ -17,7 +18,7 @@ class Lb_Controllers{
      * Retorna layout para página
      */
     public function __get_layout(){
-        require $GLOBALS['_path_layout']."/index.phtml";
+        require $GLOBALS['_path_layout']."/".$this->_layout.".phtml";
     }
     
     /**
