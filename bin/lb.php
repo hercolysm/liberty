@@ -188,37 +188,9 @@ switch ($action){
             // Novo projeto
             case 'project':
                 
-                
-                // Cria diretórios
-                print "Criando diretório de bases [OK]\n";
-                @mkdir("bases");
-                print "Criando diretório de configurações [OK]\n";
-                @mkdir("conf");
-                print "Criando diretório de controllers [OK]\n";
-                @mkdir("controller");
-                print "Criando diretório de layout [OK]\n";
-                @mkdir("layout");
-                print "Criando diretório de lib [OK]\n";
-                @mkdir("lib");
-                print "Criando diretório  publico [OK]\n";
-                @mkdir("public");
-                print "Criando diretório de assets [OK]\n";
-                @mkdir("public/assets");
-                print "Criando diretório de views [OK]\n";
-                @mkdir("views");
-                print "Criando diretório de Inicial [OK]\n";
-                @mkdir("views/Index/");
-                print "Copiando modelo de Index Controller [OK]\n";
-                @copy($_path_template."/create/Index_Controller.php", $_path_controller."/Index_Controller.php");
-                print "Copiando modelo de Layout [OK]\n";
-                @copy($_path_template."/create/layout.phtml",$cwd."/layout/index.phtml");
-                print "Copiando index [OK]\n";
-                @copy($_path_template."/create/index.php",$cwd."/public/index.php");
-                print "Copiando conf [OK]\n";
-                @copy($_path_template."/create/config.ini",$cwd."conf/");
-                print "Copiando view da action index [OK]\n";
-                @fopen($_path_views."/Index/index.phtml","w+");
-                print "Projeto Criado com sucesso [OK]\n";
+                print "Desempacotando arquivos necessários [OK]\n";
+                // Despacota arquivos
+                exec("tar -xvf $_path_template/create/project.tar");
                 
             break;
             
