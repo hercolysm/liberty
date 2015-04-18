@@ -27,8 +27,47 @@ class Lb_Bases{
     }
     
     
-    private function bind(){
+    private function bind($array = array()){
         
+       $_result = array();
+       foreach($array as $c => $v){
+           array_push($_result,"`$c`='$v'");
+       }
+       
+       return $_result;
+       
+    }
+    
+    /**
+     * Update
+     * @param Array $col Colunas com os valores
+     * @param int $id Inteiro Primário
+     */
+    public function update($col = array(),$id = 0){
+        // Cria bind de colunas com valores
+        $bind = $this->bind($col);
+                
+        $sql = "UPDATE `".$this->_name."` SET `".implode("`,`",$bind)."` WHERE `".$this->_primary."`='".$id."'";
+        
+        $this->_db->query($sql);
+        
+    }
+    
+    /**
+     * Insere valores na tabela
+     * @param Array $col Colunas com os valores
+     * @return ultimo id inserido
+     */
+    public function insert($col = array()){
+        $colunas = array();
+        $valores = array();
+        foreach($col as $col => $value){
+            array_push($colunas,$col);
+            array_push($valores,$value);
+        }
+        $sql = "INSERT INTO `".$this->_name."` (`".implode("`,`",$colunas)."`) VALUES('".implode("','",$valores)."')";
+        $this->_db->query($sql);
+        return $this->_db->lastInsertId();
     }
     
     /**
@@ -58,7 +97,7 @@ class Lb_Bases{
      * @return Array Array contendo as linhas encontradas
      */
     public function query($sql){
-        $_consulta = $PDO->query($sql);
+        $_consulta = $this->_db->query($sql);
         return $_consulta->fetchAll();
     }
     
