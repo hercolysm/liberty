@@ -41,6 +41,15 @@ class Lb_Controllers{
         }
         return "index.php?".$_get;
     }
+
+    /**
+     * Redireciona para uma URL especifica
+     * @param String $url
+     */
+    public function redirect($url){
+        print '<script type="text/javascript">location.href="'.$url.'"</script>';
+        exit;
+    }
     
 }
 
