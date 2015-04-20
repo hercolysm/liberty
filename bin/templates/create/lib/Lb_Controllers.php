@@ -36,7 +36,7 @@ class Lb_Controllers{
         //return "index.php?go=".$url["controller"]."&action=".$url["action"]
         $_get = null;
         foreach($url as $param => $value){
-            $param = str_replace("go","controller",$param);
+            $param = str_replace("controller","go",$param);
             $_get .= $param."=".$value."&";
         }
         return "index.php?".$_get;
