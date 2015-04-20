@@ -16,17 +16,22 @@ $_path_conf = $_path."/conf";
 $_path_layout = $_path."/layout";
 // Diretorio de lib
 $_path_lib = $_path."/lib";
+$_path_bases =  $_path."/bases";
 
 /**
 Autoload de classes
 @param String $class_name Nome da classe
 */
 function __autoload($class_name) {
-	global $_path_controller,$_path_lib;
+	global $_path_controller,$_path_lib,$_path_bases;
 	$dir = $_path_controller."/".$class_name.".php";
         // Verifica se class_name contem Lb(Liberty)
         if(strstr($class_name,"Lb_")){
             require_once $_path_lib."/".$class_name.".php";
+            return ;
+        }
+        if(strstr($class_name,"_Base")){
+            require_once $_path_bases."/".$class_name.".php";
             return ;
         }
         
