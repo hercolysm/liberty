@@ -38,7 +38,7 @@ function __autoload($class_name) {
 	if(file_exists($dir)){
 		require_once $dir;
 	}else{
-		print "Página não encontrada $dir";
+		print "Página não encontrada";
 		exit;
 	}
 }
