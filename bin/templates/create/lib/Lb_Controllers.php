@@ -14,6 +14,24 @@ class Lb_Controllers{
     public function __set($name,$value){
         $this->__data[$name] = $value;
     }
+
+    /**
+     * Retorna nome do controlador
+     * @return String Nome do controlador
+     */
+    public function getController(){
+        return $GLOBALS['_page_go'];
+    }
+    
+    /**
+     * Retorna nome da action
+     * @return String Nome da Action
+     */
+    public function getAction(){
+        return $GLOBALS['_page_action'];
+    }
+    
+
     
     /**
      * Retorna layout para página
