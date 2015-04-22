@@ -50,15 +50,21 @@ class Lb_Controllers{
     }
     
     
-    public function url($url = array("controller"=>"index","action"=>"index")){
+   public function url($url = array("controller"=>"index","action"=>"index")){
         //return "index.php?go=".$url["controller"]."&action=".$url["action"]
         $_get = null;
+        if(isset($url["controller"])==false && isset($url["go"])==false){
+            $url["controller"] = "Index";
+        }
+        if(isset($url["action"])==false){
+            $url["action"] = "index";
+        }
         foreach($url as $param => $value){
             $param = str_replace("controller","go",$param);
             $_get .= $param."=".$value."&";
         }
         return "index.php?".$_get;
-    }
+    } 
 
     /**
      * Redireciona para uma URL especifica
@@ -68,6 +74,45 @@ class Lb_Controllers{
         print '<script type="text/javascript">location.href="'.$url.'"</script>';
         exit;
     }
+
+    /**
+     * Protege contra SQL injection
+     * @param String str
+     */
+    public function iSafe($str){
+        $str = mysql_real_escape_string($str);
+        $str = str_replace("'","",$str);
+        return $str;
+    }
+    
+    /**
+     * Retorna valores $_POST
+     * @param String $name Nome do campo
+     * @param Boolean $protect Se deseja proteger contra SQL Injection
+     */
+    public function _POST($name = '',$protect = true){
+        if (isset($_POST["$name"])){
+            // Se deseja proteger
+            $valor = ($protect) ? $this->iSafe($_POST["$name"]) : $_POST["$name"];
+            return $valor;
+        }else{
+            return false;
+        }
+    }
+    /**
+     * Retorna valores $_GET
+     * @param String $name Nome do campo
+     */
+    public function _GET($name = '',$protect = true){
+        if (isset($_GET["$name"])){
+            // Se deseja proteger
+            $valor = ($protect) ? $this->iSafe($_GET["$name"]) : $_GET["$name"];
+            return $valor;
+        }else{
+            return false;
+        }
+    }
+   
     
 }
 
