@@ -112,6 +112,27 @@ class Lb_Controllers{
             return false;
         }
     }
+    
+    /**
+     * Seta novo valor em sessão
+     * @param String $name
+     * @param String $value
+     */
+    public function set_session($name,$value){
+        $_SESSION["$name"] = $value;
+    }
+    
+    /**
+     * Retorna valor de sessão
+     * @param String $name
+     */
+    public function get_session($name){
+        if(isset($_SESSION["$name"])){
+            return $_SESSION["$name"];
+        }else{
+            return false;
+        }
+    }
    
     
 }
