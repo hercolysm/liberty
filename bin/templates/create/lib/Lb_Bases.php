@@ -23,7 +23,8 @@ class Lb_Bases{
      * @param int $id
      */
     public function find($id = 0){
-        return $this->fetch($this->_primary."=".$id)[0];
+       $find = $this->fetch($this->_primary."=".$id);
+        return $find[0];
     }
     
     
