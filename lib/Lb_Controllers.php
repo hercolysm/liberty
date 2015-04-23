@@ -8,6 +8,7 @@ class Lb_Controllers{
     var $__data;
     var $_layout = "index";
     var $_pdo = null;
+    var $_print_layout = true;
     public function __get($name){
         return $this->__data[$name];
     }
@@ -37,7 +38,20 @@ class Lb_Controllers{
      * Retorna layout para página
      */
     public function __get_layout(){
-        require $GLOBALS['_path_layout']."/".$this->_layout.".phtml";
+        // Verifica se deseja imprimir layout
+        if($this->_print_layout){
+            require $GLOBALS['_path_layout']."/".$this->_layout.".phtml";
+        }else{
+            // Imprime view
+            $this->content();
+        }
+    }
+    
+    /**
+     * Não imprimir layout
+     */
+    public function no_layout(){
+        $this->_print_layout = false;
     }
     
     /**
@@ -80,8 +94,8 @@ class Lb_Controllers{
      * @param String str
      */
     public function iSafe($str){
-        $str = mysql_real_escape_string($str);
         $str = str_replace("'","",$str);
+        $str = str_replace("\"", null, $str);
         return $str;
     }
     
@@ -119,6 +133,7 @@ class Lb_Controllers{
      * @param String $value
      */
     public function set_session($name,$value){
+        session_start();
         $_SESSION["$name"] = $value;
     }
     
@@ -127,6 +142,7 @@ class Lb_Controllers{
      * @param String $name
      */
     public function get_session($name){
+        session_start();
         if(isset($_SESSION["$name"])){
             return $_SESSION["$name"];
         }else{
