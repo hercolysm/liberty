@@ -93,6 +93,17 @@ class Lb_Bases{
     }
     
     /**
+     * Realiza delete de um dado especifico
+     * @param int $primary Chave primaria para exclusão
+     */
+    public function delete($primary){
+        // Inicializa PDo
+        $PDO = $this->_db;
+        // Realiza exclusão
+        $_consulta = $PDO->query("DELETE FROM `".$this->_name."` WHERE `".$this->_primary."`='$primary'");
+    }
+    
+    /**
      * Realiza query
      * @param String $sql SQL
      * @return Array Array contendo as linhas encontradas
