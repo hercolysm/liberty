@@ -9,6 +9,7 @@ class Lb_Controllers{
     var $_layout = "index";
     var $_pdo = null;
     var $_print_layout = true;
+    var $_head = null;
     public function __get($name){
         return $this->__data[$name];
     }
@@ -64,7 +65,52 @@ class Lb_Controllers{
     }
     
     
-   public function url($url = array("controller"=>"index","action"=>"index")){
+   
+
+    /**
+     * Seta novo elementos no cabeçalho
+     * @param String $tag Tipo do elemento do cabeçalho (script,style)
+     * @param String $href Caminho do elemento do cabeçalho
+     */
+    public function setHeader($tag,$href){
+        switch($tag){
+            case 'script':
+                $html = '<script type="text/javascript" src="'.$href.'"></script>';
+            break;
+            case 'style':
+                $html = '<link rel="stylesheet" href="'.$href.'" type="text/css"/>';
+        }
+        $this->_head = $html."\n";
+    }
+    
+    /**
+     * Seta novo script no cabeçalho
+     * @param String $href Caminho do elemento para cabeçalho
+     */
+    public function setScript($href){
+        $this->setHeader('script', $href);
+    }
+    
+    /**
+     * Seta novo style no cabeçalho
+     * @param String $href Caminho do elemento para cabeçalho
+     */
+    public function setStyle($href){
+        $this->setHeader('style', $href);
+    }
+    
+    /**
+     * Retorna codigo do cabeçalho
+     * @return String Cabeçalho
+     */
+    public function getHeader(){
+        return $this->_head;
+    }
+    
+    
+    ## Integração com PHP ##
+    
+    public function url($url = array("controller"=>"index","action"=>"index")){
         //return "index.php?go=".$url["controller"]."&action=".$url["action"]
         $_get = null;
         if(isset($url["controller"])==false && isset($url["go"])==false){
@@ -88,7 +134,8 @@ class Lb_Controllers{
         print '<script type="text/javascript">location.href="'.$url.'"</script>';
         exit;
     }
-
+    
+    
     /**
      * Protege contra SQL injection
      * @param String str
