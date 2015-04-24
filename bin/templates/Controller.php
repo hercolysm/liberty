@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ * {NAME} 
  * @author {AUTHOR_NAME} <{AUTHOR_MAIL}>
  */
 class {NAME}_Controller extends Lb_Controllers{

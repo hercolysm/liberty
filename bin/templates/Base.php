@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ * {NAME} 
  * @author {AUTHOR_NAME} <{AUTHOR_MAIL}>
  */
 class {NAME}_Base extends Lb_Bases{
