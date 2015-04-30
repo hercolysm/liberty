@@ -48,9 +48,10 @@ class Lb_Bases{
         // Cria bind de colunas com valores
         $bind = $this->bind($col);
                 
-        $sql = "UPDATE `".$this->_name."` SET `".implode("`,`",$bind)."` WHERE `".$this->_primary."`='".$id."'";
+        $sql = "UPDATE `".$this->_name."` SET ".implode(",",$bind)." WHERE `".$this->_primary."`='".$id."'";
         
         $this->_db->query($sql);
+        return $sql;
         
     }
     
