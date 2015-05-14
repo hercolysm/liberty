@@ -92,6 +92,7 @@ switch ($action){
             case 'action':
                 $name = isset($argv[3]) ? $argv[3] : null;
                 $controller = isset($argv[4]) ? ucwords($argv[4]) : null;
+		$desc = isset($argv[5]) ? ucwords($argv[5]) : "Documentacao";
                 // Verifica se digitou os dois
                 if(!empty($name) && !empty($controller)){
                     // Verifica se controller existe
@@ -111,7 +112,7 @@ switch ($action){
                             // Final do codigo
                             $_end = strrchr($_content_controller,"}");
                             // Conteudo do action (metodo)
-                            $_content_action= "\n\tpublic function $name(){}\n".$_end;
+                            $_content_action= "\n\t/**\n\t* $desc\n\t**/\n\tpublic function $name(){}\n".$_end;
                             // Atualiza conteudo do controller
                             $_content_controller = str_replace($_end, $_content_action, $_content_controller);
                             
@@ -208,7 +209,7 @@ switch ($action){
             print "Utilize um dos comandos abaixo:\n";
             
             print "~$ php lb.php create [controller] [name] \n\t=>Cria Controller com suas respectivas views\n\n";
-            print "~$ php lb.php create [action] [name] [controller] \n\t=>Cria action a partir de um controle, com suas views\n\n";
+            print "~$ php lb.php create [action] [name] [controller] [^Descricao] \n\t=>Cria action a partir de um controle, com suas views\n\n";
             print "~$ php lb.php create [base] [name] [^table] [^primary] \n\t=> Cria controlador de base de dados\n\n";
             
             print "~$ php lb.php create project \n\t=> Cria Projeto Liberty\n\n";
