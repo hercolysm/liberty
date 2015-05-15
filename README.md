@@ -42,3 +42,48 @@ A estrutura do liberty é a seguinte:
   </pre>
   <br>
   O script lb.php encontra-se no diretorio "bin/" ele é utilizado para facilitar a criação das funções do liberty
+  
+  # Configurando Projeto
+  Para configurar o projeto, após ser criado, entre no arquivo "conf/conf.ini", onde o mesmo é utilizado inicialmente para ocnfiguração do PDO. Com os seguintes parametros configure (Retirando o comentário inicial ";"):
+  <br>
+  <pre>
+  <code>
+  [database]
+  adapter=mysql ;Adaptador do banco de dados (Drivers PDO(mysql,pgsql,dlib))
+  host=localhost ;Endereço do banco de dados
+  user=root ;Usuário do banco de dados
+  pass=admin ;Senha do usuário do banco de dados
+  dbname=db ;Nome do banco de dados
+  port=3306 ;Porta de conexão do banco de dados
+  </code>
+  </pre>
+  
+  # Como funciona a requisão pelo usuário
+  Quando o usuário solicita o endereço, por exemplo:
+  <br>
+  <code>http://localhost/public/?go=home&action=listar</code>
+  <br>
+  acontece o seguinte:
+  <ol>
+    <li> O Servidor acessa "public/index.php" com os seguintes parametros:
+      <ol type="a">
+        <li> go = home </li>
+        <li> action = mostrar </li>
+      </ol>
+    </li>
+    <li> O Index trata os parametros, traduzindo-os:
+      <ol type="a">
+        <li> go = controller </li>
+        <li> action = ação </li>
+      </ol>
+    </li>
+    <li> O public/index.php chama o controller (home)</li>
+    <li> Imprime na tela o layout padrão (Caso não seja solicitado para não imprimir)</li>
+    <li> Acessa a action (mostrar) </li>
+    <li> Executa as ações da "action" (mostrar) </li>
+    <li> Acessa e imprime a view da action do controller (views/Home/mostrar.phtml)</li>
+  </ol>
+    
+      
+    
+  
