@@ -154,3 +154,35 @@ Meu nome é....
 Lucas Brito
 ```
 Quando iniciamos solicitando a url <code>http://localhost/public/?go=meuControlador</code> o liberty carrega primeiro o método init() logo após o método index() e imprimindo com o layout. Quando criamos uma variavel utilizando <code>$this->variavel = "0";</code> ela automaticamente fica acessável para todo a base atual (Actions do Controller / Views / Layout)
+
+# Criando Action(Ações)
+Para criar actions você utiliza o seguinte codigo
+```bash
+lb.php create action minha_action meuControlador "Documentação"
+```
+Onde resulta em:
+```php
+<?php
+/**
+ * MeuControlador
+ * @author Nome <email@servidor.com.br>
+ */
+class MeuControlador_Controller extends Lb_Controllers{
+
+    	public function init(){
+    	  $this->texto = "Meu nome é:";
+	    }
+
+    public function index(){
+      $this->nome = "Lucas Brito";
+      	}
+      	/**
+      	* Documentação
+      	**/
+      	public function minha_action(){
+      	}
+}
+?>
+```
+É também criado uma view em <code>views/MeuControlador/minha_action.phtml</code> para visualização do usuário.
+Para que o usuário possa acessar a action o endereço digitado seria:<br> <code>http://localhost/public/?go=meuControlador&action=minha_action</code>
