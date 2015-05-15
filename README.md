@@ -43,7 +43,7 @@ A estrutura do liberty é a seguinte:
   <br>
   O script lb.php encontra-se no diretorio "bin/" ele é utilizado para facilitar a criação das funções do liberty
   
-  # Configurando Projeto
+# Configurando Projeto
   Para configurar o projeto, após ser criado, entre no arquivo "conf/conf.ini", onde o mesmo é utilizado inicialmente para ocnfiguração do PDO. Com os seguintes parametros configure (Retirando o comentário inicial ";"):
   <br>
   <pre>
@@ -58,7 +58,7 @@ A estrutura do liberty é a seguinte:
   </code>
   </pre>
   
-  # Como funciona a requisão pelo usuário
+# Como funciona a requisão pelo usuário
   Quando o usuário solicita o endereço, por exemplo:
   <br>
   <code>http://localhost/public/?go=home&action=listar</code>
