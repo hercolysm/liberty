@@ -46,8 +46,8 @@ A estrutura do liberty é a seguinte:
 # Configurando Projeto
   Para configurar o projeto, após ser criado, entre no arquivo "conf/conf.ini", onde o mesmo é utilizado inicialmente para ocnfiguração do PDO. Com os seguintes parametros configure (Retirando o comentário inicial ";"):
   <br>
-  <pre>
-  <code>
+  
+  ```ini
   [database]
   adapter=mysql ;Adaptador do banco de dados (Drivers PDO(mysql,pgsql,dlib))
   host=localhost ;Endereço do banco de dados
@@ -55,8 +55,7 @@ A estrutura do liberty é a seguinte:
   pass=admin ;Senha do usuário do banco de dados
   dbname=db ;Nome do banco de dados
   port=3306 ;Porta de conexão do banco de dados
-  </code>
-  </pre>
+  ```
   
 # Como funciona a requisão pelo usuário
   Quando o usuário solicita o endereço, por exemplo:
@@ -79,11 +78,79 @@ A estrutura do liberty é a seguinte:
     </li>
     <li> O public/index.php chama o controller (home)</li>
     <li> Imprime na tela o layout padrão (Caso não seja solicitado para não imprimir)</li>
+    <li>Executa as ações do método init() do controller</li>
     <li> Acessa a action (mostrar) </li>
     <li> Executa as ações da "action" (mostrar) </li>
     <li> Acessa e imprime a view da action do controller (views/Home/mostrar.phtml)</li>
   </ol>
     
       
-    
-  
+# Controllers
+Para criar controllers(que no caso são as páginas carregadas pelo método GET "go") utiliza-se o seguinte código abaixo:
+<br>
+<code>lb.php create controller "meuControlador"</code>
+<br>
+Quando criado o controller, o código poderá ser acessado:
+<br>
+<code>controller/MeuControlador_Controller.php</code>
+<br>
+Onde o mesmo apresentará o seguinte código:
+<br>
+
+```php
+<?php
+/**
+ * MeuControlador
+ * @author Nome <email@servidor.com.br>
+ */
+class MeuControlador_Controller extends Lb_Controllers{
+
+    	public function init(){
+	    }
+
+	    public function index(){
+      }	
+}
+?>
+```
+Ao criar controller é automaticamente criado uma action chamada index (Views/MeuControlador/index.phtml), quando o usuário acessar
+<code>"http://localhost/public/?go=meuControlador" </code> (sem enviar o valor "action") é carregada a ação "index"
+<br>
+
+<strong>Utilizando Controllers+Views(o que vai ser mostrado ao usuário):</strong>
+<br>
+controller/MeuControlador_Controller.php:
+```php
+<?php
+/**
+ * MeuControlador
+ * @author Nome <email@servidor.com.br>
+ */
+class MeuControlador_Controller extends Lb_Controllers{
+
+    	public function init(){
+    	  $this->texto = "Meu nome é:";
+	    }
+
+	    public function index(){
+	      $this->nome = "Lucas Brito";
+      }	
+}
+?>
+```
+Views/MeuControlador/index.phtml
+```php
+<?php
+  print "Ola?<br>";
+  print $this->texto."<br>";
+  print $this->nome;
+?>
+```
+
+Resultado:
+```php
+Ola?
+Meu nome é....
+Lucas Brito
+```
+Quando iniciamos solicitando a url <code>http://localhost/public/?go=meuControlador</code> o liberty carrega primeiro o método init() logo após o método index() e imprimindo com o layout. Quando criamos uma variavel utilizando <code>$this->variavel = "0";</code> ela automaticamente fica acessável para todo a base atual (Actions do Controller / Views / Layout)
