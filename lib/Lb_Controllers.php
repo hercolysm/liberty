@@ -114,7 +114,7 @@ class Lb_Controllers{
         //return "index.php?go=".$url["controller"]."&action=".$url["action"]
         $_get = null;
         if(isset($url["controller"])==false && isset($url["go"])==false){
-            $url["controller"] = "Index";
+            $url["controller"] = $this->getController();
         }
         if(isset($url["action"])==false){
             $url["action"] = "index";
