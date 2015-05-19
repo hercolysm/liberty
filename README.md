@@ -189,12 +189,11 @@ Para que o usuário possa acessar a action o endereço digitado seria:<br> <code
 
 # Métodos utilizáveis tanto pelas actions,views,layout
 
-<code>$this->getControlle() => Retorna nome do controller atual</code><br>
-<code>$this->getAction() => Retorna nome da action atual</code><br>
-<code>$this->no_layout() => Diz ao código que não vai ser impresso o layout, somente a view</code><br>
-<code>$this->content() => Retorna o conteudo (Utilizado no Layout)</code><br>
-<code>
-$this->setHeader($tag,$href) => Seta novo elemento(script,link) no cabeçalho  (Deve-se usar o comando 'print $this->getHeader();' no layout).Ex:
+<code><strong>$this->getControlle()</strong> => Retorna nome do controller atual</code><br>
+<code><strong>$this->getAction()</strong> => Retorna nome da action atual</code><br>
+<code><strong>$this->no_layout()</strong> => Diz ao código que não vai ser impresso o layout, somente a view</code><br>
+<code><strong>$this->content()</strong> => Retorna o conteudo (Utilizado no Layout)</code><br>
+<code><strong>$this->setHeader($tag,$href)</strong> => Seta novo elemento(script,link) no cabeçalho  (Deve-se usar o comando 'print $this->getHeader();' no layout).Ex:
 ```php
 // Seta inclusão de código jquery.min.js que encontra-se em assets/js/jquery.min.js
 $this->setHeader('script','assets/js/jquery.min.js');
@@ -202,26 +201,22 @@ $this->setHeader('script','assets/js/jquery.min.js');
 $this->setHeader('style','assets/css/all.css');
 ```
 </code><br>
-<code>
-$this->setScript($href) => Seta novo script no cabeçalho (Deve-se usar o comando 'print $this->getHeader();' no layout)
+<code><strong>$this->setScript($href)</strong> => Seta novo script no cabeçalho (Deve-se usar o comando 'print $this->getHeader();' no layout)
 ```php
 // Seta inclusão de código jquery.min.js que encontra-se em assets/js/jquery.min.js
 $this->setScript('assets/js/jquery.min.js');
 ```
 </code><br>
-<code>
-$this->setStyle($href) => Seta novo style ao cabeçalho (Deve-se usar o comando 'print $this->getHeader();' no layout)
+<code><strong>$this->setStyle($href)</strong> => Seta novo style ao cabeçalho (Deve-se usar o comando 'print $this->getHeader();' no layout)
 ```php
 // Seta inclusão do css all.css que encontra-se em assets/css/all.css
 $this->setStyle('assets/css/all.css');
 ```
 </code><br>
-<code>
-$this->getHeader() => Retorna codigos setados no cabeçalho (Usar somente no layout)
+<code><strong>$this->getHeader()</strong> => Retorna codigos setados no cabeçalho (Usar somente no layout)
 </code><br>
 
-<code>
-$this->url(Array $url) => Cria e retorna url para o código.
+<code><strong>$this->url(Array $url)</strong> => Cria e retorna url para o código.
 ```php
 // Cria url
 $url_1 = $this->url(array("controller"=>"meu_controller","action"=>"home")); 
@@ -240,16 +235,14 @@ print $url_4;
 ```
 </code>
 <br>
-<code>
-$this->redirect($url) => Redireciona a página
+<code><strong>$this->redirect($url)</strong> => Redireciona a página
 ```php
 // Redireciona para meu_controller na action home
 $this->redirect($this->url(array("controller"=>"meu_controller","action"=>"home")));
 ```
 </code>
 <br>
-<code>
-$this->_POST($name,$protect=true) | $this->_GET($name,$protect = true) => Retorna um valor POST/GET enviado pelo formulário. O protect é usuado caso não queira proteger a string(no casso de array deve-se colocar false, pois o padrão é true) contra sql injection
+<code><strong>$this->_POST($name,$protect=true)</strong> | <strong>$this->_GET($name,$protect = true)</strong> => Retorna um valor POST/GET enviado pelo formulário. O protect é usuado caso não queira proteger a string(no casso de array deve-se colocar false, pois o padrão é true) contra sql injection
 ```php
 $nome = $this->_POST("nome");
 $id = $this->_GET("id");
@@ -257,8 +250,7 @@ $array = $this->_POST("array",false);
 ```
 </code>
 <br>
-<code>
-$this->set_session($name,$value) => Grava um valor na sessão do navegador
+<code><strong>$this->set_session($name,$value)</strong> => Grava um valor na sessão do navegador
 <br>
 $this->get_session($name) => Retorna valor da sessão gravada no navegador
 ```php
