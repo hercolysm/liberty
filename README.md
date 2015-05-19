@@ -186,3 +186,23 @@ class MeuControlador_Controller extends Lb_Controllers{
 ```
 É também criado uma view em <code>views/MeuControlador/minha_action.phtml</code> para visualização do usuário.
 Para que o usuário possa acessar a action o endereço digitado seria:<br> <code>http://localhost/public/?go=meuControlador&action=minha_action</code>
+
+# Métodos utilizáveis tanto pelas actions,views,layout
+
+<ul>
+	<li>$this->getControlle() => Retorna nome do controller atual</li>
+	<li>$this->getAction() => Retorna nome da action atual</li>
+	<li>$this->no_layout() => Diz ao código que não vai ser impresso o layout, somente a view</li>
+	<li>$this->content() => Retorna o conteudo (Utilizado no Layout)</li>
+	<li>$this->setHeader($tag,$href) => Seta novo elemento(script,link) no cabeçalho</li>
+</ul>
+```php
+// Seta inclusão de código jquery.min.js que encontra-se em assets/js/jquery.min.js
+$this->setHeader('script','assets/js/jquery.min.js');
+// Seta inclusão do css all.css que encontra-se em assets/css/all.css
+$this->setHeader('style','assets/css/all.css');
+```
+
+
+
+# Criando Base(Base para consulta em tabelas do banco de dados)
