@@ -263,3 +263,4 @@ print "Meu nome é :".$this->get_session("nome");
 
 
 # Criando Base(Base para consulta em tabelas do banco de dados)
+s
