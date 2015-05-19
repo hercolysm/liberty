@@ -189,18 +189,83 @@ Para que o usuário possa acessar a action o endereço digitado seria:<br> <code
 
 # Métodos utilizáveis tanto pelas actions,views,layout
 
-<ul>
-	<li>$this->getControlle() => Retorna nome do controller atual</li>
-	<li>$this->getAction() => Retorna nome da action atual</li>
-	<li>$this->no_layout() => Diz ao código que não vai ser impresso o layout, somente a view</li>
-	<li>$this->content() => Retorna o conteudo (Utilizado no Layout)</li>
-	<li>$this->setHeader($tag,$href) => Seta novo elemento(script,link) no cabeçalho</li>
-</ul>
+<code>$this->getControlle() => Retorna nome do controller atual</code><br>
+<code>$this->getAction() => Retorna nome da action atual</code><br>
+<code>$this->no_layout() => Diz ao código que não vai ser impresso o layout, somente a view</code><br>
+<code>$this->content() => Retorna o conteudo (Utilizado no Layout)</code><br>
+<code>
+$this->setHeader($tag,$href) => Seta novo elemento(script,link) no cabeçalho  (Deve-se usar o comando 'print $this->getHeader();' no layout).Ex:
 ```php
 // Seta inclusão de código jquery.min.js que encontra-se em assets/js/jquery.min.js
 $this->setHeader('script','assets/js/jquery.min.js');
 // Seta inclusão do css all.css que encontra-se em assets/css/all.css
 $this->setHeader('style','assets/css/all.css');
+```
+</code><br>
+<code>
+$this->setScript($href) => Seta novo script no cabeçalho (Deve-se usar o comando 'print $this->getHeader();' no layout)
+```php
+// Seta inclusão de código jquery.min.js que encontra-se em assets/js/jquery.min.js
+$this->setScript('assets/js/jquery.min.js');
+```
+</code><br>
+<code>
+$this->setStyle($href) => Seta novo style ao cabeçalho (Deve-se usar o comando 'print $this->getHeader();' no layout)
+```php
+// Seta inclusão do css all.css que encontra-se em assets/css/all.css
+$this->setStyle('assets/css/all.css');
+```
+</code><br>
+<code>
+$this->getHeader() => Retorna codigos setados no cabeçalho (Usar somente no layout)
+</code><br>
+
+<code>
+$this->url(Array $url) => Cria e retorna url para o código.
+```php
+// Cria url
+$url_1 = $this->url(array("controller"=>"meu_controller","action"=>"home")); 
+$url_2 = $this->url(array("controller"=>"meu_controller"));
+$url_3 = $this->url(array("action"=>"home"));
+$url_4 = $this->url(array("controller"=>"meu_controller","action"=>"cadastro","idade"=>19,"nome"=>"Lucas","sobrenome"=>"Brito"));
+
+// Retorna index.php?go=meu_controller&action=home (controller e "go" tem a mesma função)
+print $url_1;
+// Retorna index.php?go=meu_controller&action=index (Quando não enviado action, assume como index)
+print $url_2;
+// Retorna index.php?go=meu_controller&action=home (Quando não enviado controller assume o controller atual)
+print $url_3;
+// Retorna index.php?go=meu_controller&action=cadastro&idade=19&nome=Lucas&sobrenome=Brito (Quando enviado outros parametros no array, assume como novos valores do método $_GET
+print $url_4;
+```
+</code>
+<br>
+<code>
+$this->redirect($url) => Redireciona a página
+```php
+// Redireciona para meu_controller na action home
+$this->redirect($this->url(array("controller"=>"meu_controller","action"=>"home")));
+```
+</code>
+<br>
+<code>
+$this->_POST($name,$protect=true) | $this->_GET($name,$protect = true) => Retorna um valor POST/GET enviado pelo formulário. O protect é usuado caso não queira proteger a string(no casso de array deve-se colocar false, pois o padrão é true) contra sql injection
+```php
+$nome = $this->_POST("nome");
+$id = $this->_GET("id");
+$array = $this->_POST("array",false);
+```
+</code>
+<br>
+<code>
+$this->set_session($name,$value) => Grava um valor na sessão do navegador
+<br>
+$this->get_session($name) => Retorna valor da sessão gravada no navegador
+```php
+// Grava sessão com o campo "nome" e seu valor "Lucas Brito"
+$this->set_session("nome","Lucas Brito");
+// Imprime "Meu nome é :Lucas Brito"
+print "Meu nome é :".$this->get_session("nome");
 ```
 
 
