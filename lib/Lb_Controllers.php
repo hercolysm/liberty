@@ -141,8 +141,8 @@ class Lb_Controllers{
      * @param String str
      */
     public function iSafe($str){
-        $str = str_replace("'","",$str);
-        $str = str_replace("\"", null, $str);
+        $str = str_replace("'","\'",$str);
+        $str = str_replace("\"", '\"', $str);
         return $str;
     }
     
