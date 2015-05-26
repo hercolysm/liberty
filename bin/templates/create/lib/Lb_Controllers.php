@@ -10,6 +10,7 @@ class Lb_Controllers{
     var $_pdo = null;
     var $_print_layout = true;
     var $_head = null;
+    var $log = array();
     public function __get($name){
         return $this->__data[$name];
     }
@@ -114,7 +115,7 @@ class Lb_Controllers{
         //return "index.php?go=".$url["controller"]."&action=".$url["action"]
         $_get = null;
         if(isset($url["controller"])==false && isset($url["go"])==false){
-            $url["controller"] = "Index";
+            $url["controller"] = $this->getController();
         }
         if(isset($url["action"])==false){
             $url["action"] = "index";
@@ -141,8 +142,8 @@ class Lb_Controllers{
      * @param String str
      */
     public function iSafe($str){
-        $str = str_replace("'","",$str);
-        $str = str_replace("\"", null, $str);
+        $str = str_replace("'","\'",$str);
+        $str = str_replace("\"", '\"', $str);
         return $str;
     }
     

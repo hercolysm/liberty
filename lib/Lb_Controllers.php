@@ -10,6 +10,7 @@ class Lb_Controllers{
     var $_pdo = null;
     var $_print_layout = true;
     var $_head = null;
+    var $log = array();
     public function __get($name){
         return $this->__data[$name];
     }
