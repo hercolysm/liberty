@@ -263,4 +263,103 @@ print "Meu nome é :".$this->get_session("nome");
 
 
 # Criando Base(Base para consulta em tabelas do banco de dados)
-s
+Para criar base de dados onde realiza consulta na tabela do banco de dados use o seguinte código:
+<br>
+<code>lb.php create base minhaBase nometabela id_primary</code>
+<br>
+Onde serão passados os parametros de nome da base de dados nome da tabela e nome da chave primaria
+<br><br>
+Com o uso de base (sendo que o PDO já deve estar configurado no arquivo conf/config.ini) você tem acesso mais rápido a consultas, edições, inserções na tabela especifica, de uma forma mais simples e rápida.
+<br><br>
+Para chamar uma base utilize a seguinte forma (é aconselhavel iniciar as bases nos métodos init() do controller pois terá acesso em qualquer action) (Passe o parametro $this->_pdo para iniciar a construção com pdo)
+```php
+<?php
+	class meuControlador_Controller extends Lb_Controllers{
+		var $MinhaBase;
+		public init(){
+			$this->MinhaBase = new minhaBase($this->_pdo);
+		}
+		public index(){
+			count ($this->MinhaBase->fetch()); // Retorna numeros de linhas
+		}
+	}
+?>
+```
+# Metodos utilizados por Lb_Bases
+
+<code>$this->MinhaBase->fetch($where,$order) => Retorna todas as linhas (PDO::fetchAll()) da tabela (Caso não seja passado nenhum comando no primeiro argumento $where)</code>
+<br>
+Exemplo:
+```php
+public index(){
+	$this->MinhaBase->fetch(); // Todas as linhas
+	$this->MinhaBase->fetch("nome='Lucas' AND sobrenome='Brito'"); // Somente os que contiverem nome e o sobrenome
+	$this->MinhaBase->fetch("idade=15","idade desc,sexo asc"); // Todas as idades 15 e ordenando por idade e sexo
+	$this->MinhaBase->fetch(null,"idade desc"); => Todas as linhas ordenando por idade
+}
+```
+<br><br>
+<code>$this->find($id_primary)=> Retorna somente a linha onde a chave primaria é igual a passada como parametro</code>
+<br>
+Exemplo:
+```php
+public index(){
+	$consulta = $this->MinhaBase->find(1); // Retorna somente a chave primaria 1
+	print $consulta["nome"];
+	print $consulta["sobrenome"];
+	print $consulta["idade"];
+}
+```
+<br><br>
+<code>$this->update(Array,PRIMARY) => Realiza updade de uma linha na tabela, onde a chave primaria seja igual a enviada</code>
+<br>
+Exemplo:
+```php
+public index(){
+	// Utiliza array dos campos que quero editar
+	$array = array(
+	"idade"=>15
+	);
+	// Reliza edição do id =1
+	$this->MinhaBase->update($array,1);
+}
+```
+<br><br>
+<code>$this->insert(Array) => Realiza inserção no banco a partir de um array de dados</code>
+<br>
+Exemplo:
+```php
+public index(){
+	// Utiliza array dos campos que quero inserir
+	$array = array(
+	"nome"=>"Lucas",
+	"sobrenome"=>"Brito"
+	"idade"=>19
+	);
+	// Reliza inserção retornando o id inserido
+	$id_usuario = $this->MinhaBase->insert($array);
+	print $id_usuario; // Igual a PDO::lastInsertId();
+}
+```
+<br><br>
+<code>$this->delete(PRIMARY) => Realiza exclusão de uma linha a partir da chave primaria</code>
+<br>
+Exemplo:
+```php
+public index(){
+	$this->MinhaBase->delete(1); // Deleta registro com a chave primaria 1
+}
+```
+<br><br>
+<code>$this->query(STRIng) => Realiza consulta PDO normal, retornando um resource</code>
+<br>
+Exemplo:
+```php
+public index(){
+	$consulta = $this->MinhaBase->query("Select * from lis_usuarios");
+	$rows = $consulta->rowCount(); // O mesmo que count($this->MinhaBase->fetch());
+	$fetch = $consulta->fetchAssoc(PDO::FETCH_ASSOC); // O mesmo que $this->MinhaBase->fetch()[0];
+	$fetch_all = $consulta->fetchAll(); // O mesmo que $this->MinhaBase->fetch();
+	$this->MinhaBase->query("DELETE FROM lis_usuarios WHERE id_usuario=1"); // O mesmo que $this->MinhaBase->delete(1)
+}
+```
