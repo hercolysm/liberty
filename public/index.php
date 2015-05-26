@@ -45,6 +45,7 @@ function __autoload($class_name) {
 
 // Abre aquivo de configurações
 $_conf = parse_ini_file($_path_conf."/config.ini",true);
+$PDO = null;
 // Verifica se existe database
 if(isset($_conf["database"])){
     try{
