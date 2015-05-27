@@ -2,7 +2,7 @@
 Modelo MVC da liberty - Criado e desenvolvido por Lucas Brito
 
 Liberty MVC é a utilização do modelo MVC (Model-View-Controller) em projetos de código PHP. Utilizando de código Orientando a Objetos, o <br>
-programador tem a performace de código limp e fácil de realizar qualquer tipo de modificação
+programador tem a performace de código limpo e fácil de realizar qualquer tipo de modificação
 
 
 # Estrutura
