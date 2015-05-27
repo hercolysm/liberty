@@ -1,0 +1,36 @@
+<form action="<?=$this->url(array("controller"=>"index","action"=>"cadastrar"))?>" method="post">
+    <input type="hidden" name="id_usuario" value="<?=$this->id_usuario?>">
+    Nome:
+    <input type="text" name="nome" value="<?=$this->nome?>">
+    <br>
+    Sobrenome:
+    <input type="text" name="sobrenome" value="<?=$this->sobrenome?>">
+    <br>
+    Idade:
+    <input type="text" name="idade" value="<?=$this->idade?>">
+    <br>
+    <button type="submit">Salvar</button>
+</form>
+<hr>
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Idade</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->lista_usuarios as $retorno): ?>
+        <tr>
+            <td><?=$retorno['nome']?></td>
+            <td><?=$retorno['sobrenome']?></td>
+            <td><?=$retorno['idade']?></td>
+            <td><a href="<?=$this->url(array("action"=>"index","id_usuario"=>$retorno['id_usuario']))?>">Editar</a></td>
+            <td><a href="<?=$this->url(array("action"=>"deletar","id_usuario"=>$retorno['id_usuario']))?>">Excluir</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
