@@ -60,7 +60,7 @@ A estrutura do liberty é a seguinte:
 # Como funciona a requisão pelo usuário
   Quando o usuário solicita o endereço, por exemplo:
   <br>
-  <code>http://localhost/public/?go=home&action=listar</code>
+  <code>http://localhost/public/?go=home&action=mostrar</code>
   <br>
   acontece o seguinte:
   <ol>
