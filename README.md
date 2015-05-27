@@ -44,7 +44,7 @@ A estrutura do liberty é a seguinte:
   O script lb.php encontra-se no diretorio "bin/" ele é utilizado para facilitar a criação das funções do liberty
   
 # Configurando Projeto
-  Para configurar o projeto, após ser criado, entre no arquivo "conf/conf.ini", onde o mesmo é utilizado inicialmente para ocnfiguração do PDO. Com os seguintes parametros configure (Retirando o comentário inicial ";"):
+  Para configurar o projeto, após ser criado, entre no arquivo "conf/conf.ini", onde o mesmo é utilizado inicialmente para configuração do PDO. Com os seguintes parametros configure (Retirando o comentário inicial ";"):
   <br>
   
   ```ini
@@ -57,7 +57,7 @@ A estrutura do liberty é a seguinte:
   port=3306 ;Porta de conexão do banco de dados
   ```
   
-# Como funciona a requisão pelo usuário
+# Como funciona a requisisão pelo usuário
   Quando o usuário solicita o endereço, por exemplo:
   <br>
   <code>http://localhost/public/?go=home&action=mostrar</code>
@@ -141,7 +141,7 @@ class MeuControlador_Controller extends Lb_Controllers{
 Views/MeuControlador/index.phtml
 ```php
 <?php
-  print "Ola?<br>";
+  print "Olá Mundo!<br>";
   print $this->texto."<br>";
   print $this->nome;
 ?>
@@ -149,7 +149,7 @@ Views/MeuControlador/index.phtml
 
 Resultado:
 ```php
-Ola?
+Olá Mundo
 Meu nome é....
 Lucas Brito
 ```
