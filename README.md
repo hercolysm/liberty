@@ -189,7 +189,7 @@ Para que o usuário possa acessar a action o endereço digitado seria:<br> <code
 
 # Métodos utilizáveis tanto pelas actions,views,layout
 
-<code><strong>$this->getControlle()</strong> => Retorna nome do controller atual</code><br>
+<code><strong>$this->getController()</strong> => Retorna nome do controller atual</code><br>
 <code><strong>$this->getAction()</strong> => Retorna nome da action atual</code><br>
 <code><strong>$this->no_layout()</strong> => Diz ao código que não vai ser impresso o layout, somente a view</code><br>
 <code><strong>$this->content()</strong> => Retorna o conteudo (Utilizado no Layout)</code><br>
@@ -259,7 +259,15 @@ $this->set_session("nome","Lucas Brito");
 // Imprime "Meu nome é :Lucas Brito"
 print "Meu nome é :".$this->get_session("nome");
 ```
-
+<br>
+<code><strong>$this->render($_page)</strong> => Renderiza uma view de qualquer controller
+<br>
+views/Index/index.phtml
+```php
+// Alem de mostrar index faz uma inclusão de Index/outra.phtml
+$this->render("Index/outra.phtml");
+```
+<br>
 
 
 # Criando Base(Base para consulta em tabelas do banco de dados)

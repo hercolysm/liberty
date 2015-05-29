@@ -195,7 +195,28 @@ class Lb_Controllers{
             return false;
         }
     }
-   
+
+    /**
+     * Renderiza views
+     * @param String $_page Página para renderiza
+     */
+    public function render($_page = null){
+        
+        // Diretorio de libs
+        $_dir = dirname(__FILE__);
+        // Retorna ao diretorio principal e entra nas views
+        $_views = $_dir."/../views";
+        
+        // Verifica se arquivo existe
+        if(file_exists($_views."/".$_page)){
+            require $_views."/".$_page;
+        }else{ // Mostra mensagem de erro na página
+            print "A página '$_views/$_page' não existe";
+        }
+        
+        
+        
+    }
     
 }
 
