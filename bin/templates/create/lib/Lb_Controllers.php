@@ -181,7 +181,6 @@ class Lb_Controllers{
      * @param String $value
      */
     public function set_session($name,$value){
-        session_start();
         $_SESSION["$name"] = $value;
     }
     
@@ -190,7 +189,6 @@ class Lb_Controllers{
      * @param String $name
      */
     public function get_session($name){
-        session_start();
         if(isset($_SESSION["$name"])){
             return $_SESSION["$name"];
         }else{

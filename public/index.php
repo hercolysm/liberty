@@ -3,7 +3,7 @@
 *	Controlador de Páginas
 *	@author Lucas Brito <lucas@libertynet.com.br>
 */
-
+session_start();
 // Diretorio path
 $_path = __DIR__."/../";
 // Diretorio de views (pages)
