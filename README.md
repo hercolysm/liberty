@@ -2,7 +2,7 @@
 Modelo MVC da liberty - Criado e desenvolvido por Lucas Brito
 
 Liberty MVC é a utilização do modelo MVC (Model-View-Controller) em projetos de código PHP. Utilizando de código Orientando a Objetos, o <br>
-programador tem a performace de código limp e fácil de realizar qualquer tipo de modificação
+programador tem a performace de código limpo e fácil de realizar qualquer tipo de modificação
 
 
 # Estrutura
@@ -44,7 +44,7 @@ A estrutura do liberty é a seguinte:
   O script lb.php encontra-se no diretorio "bin/" ele é utilizado para facilitar a criação das funções do liberty
   
 # Configurando Projeto
-  Para configurar o projeto, após ser criado, entre no arquivo "conf/conf.ini", onde o mesmo é utilizado inicialmente para ocnfiguração do PDO. Com os seguintes parametros configure (Retirando o comentário inicial ";"):
+  Para configurar o projeto, após ser criado, entre no arquivo "conf/conf.ini", onde o mesmo é utilizado inicialmente para configuração do PDO. Com os seguintes parametros configure (Retirando o comentário inicial ";"):
   <br>
   
   ```ini
@@ -57,10 +57,10 @@ A estrutura do liberty é a seguinte:
   port=3306 ;Porta de conexão do banco de dados
   ```
   
-# Como funciona a requisão pelo usuário
+# Como funciona a requisisão pelo usuário
   Quando o usuário solicita o endereço, por exemplo:
   <br>
-  <code>http://localhost/public/?go=home&action=listar</code>
+  <code>http://localhost/public/?go=home&action=mostrar</code>
   <br>
   acontece o seguinte:
   <ol>
@@ -141,7 +141,7 @@ class MeuControlador_Controller extends Lb_Controllers{
 Views/MeuControlador/index.phtml
 ```php
 <?php
-  print "Ola?<br>";
+  print "Olá Mundo!<br>";
   print $this->texto."<br>";
   print $this->nome;
 ?>
@@ -149,7 +149,7 @@ Views/MeuControlador/index.phtml
 
 Resultado:
 ```php
-Ola?
+Olá Mundo
 Meu nome é....
 Lucas Brito
 ```
