@@ -29,8 +29,129 @@ function erro($msg = "ERRO"){
 
 // Primeiro argumento
 $action = isset($argv[1]) ? $argv[1] : "help";
-switch ($action){
+switch ($action){ 
+
+    // Remover
+    case 'remove':
+        
+        $argumento = isset($argv[2]) ? $argv[2] : null;
+        // Consulta argumentos
+        switch ($argumento){
+            
+            default :
+                erro();
+            break;
+        
+            // REmove controller
+            case 'controller':
+                $name = isset($argv[3]) ? ucwords($argv[3]) : null;
+                
+                // Caso não esteja em branco
+                if(!empty($name)){
+                    
+                    // Verifica se controller existe
+                    if(file_exists($_path_controller."/".$name."_Controller.php")){
+                        unlink($_path_controller."/".$name."_Controller.php");
+                        shell_exec("rm -r $_path_views/$name");
+                        print "Controller $name removido com sucesso!";
+                    }else{
+                        erro("Controller $name não existe");
+                    }
+                        
+                    
+                }
+            break;
+            
+           
+            case 'base':
+                $name = isset($argv[3]) ? ucwords($argv[3]) : null;
+                
+                if(!empty($name)){
+                    
+                    // Verifica se arquivo existe
+                    if(file_exists($_path_base."/".$name."_Base.php")){
+                        // Remove
+                        unlink($_path_base."/".$name."_Base.php");
+                        print "Base $name removida com sucesso!";
+                    }else{
+                        erro("Base '$name' não existe");
+                    }
+                }
+                
+            break;
+        }
+        
+    break;
     
+    
+    // Lista 
+    case 'list':
+        
+        $argumento = isset($argv[2]) ? $argv[2] : null;
+        // Consulta argumentos
+        switch ($argumento){
+            
+            // Lista controllers existentes
+            case 'controllers':
+                
+                print "#### Controllers ###\n";
+                // Lê path controller
+                $_read = opendir($_path_views);
+                // Lê linha por linha
+                while($controller = readdir($_read)){
+                    if($controller!="." && $controller!=".."){
+                        print "=>".$controller."\n";
+                    }
+                }
+                print "####################";
+                
+            break;
+            
+            // Lista actions
+            case 'actions':
+                $controller = isset($argv[3]) ? ucwords($argv[3]) : "-";
+                // Leitura
+                $_read = $_path_views."/".$controller;
+                // Verifica se controller existe
+                if(file_exists($_read)){
+                    
+                    $_read = opendir($_read);
+                    print "#### Actions ###\n";
+                    while($view = readdir($_read)){
+                        
+                        // Verifica se é uma view
+                        if(strstr($view,".phtml")){
+                            print "=> ".str_replace(".phtml",null,$view)."\n";
+                        }
+                        
+                    }
+                    print "################";
+                    
+                }else{
+                    print "Controller '$controller' não existe [ERRO]";
+                }
+                
+            break;
+            
+            // Lista bases
+            case 'bases':
+                print "#### Bases ###\n";
+                // Lê path base
+                $_read = opendir($_path_base);
+                // Lê linha por linha
+                while($base = readdir($_read)){
+                    if($base!="." && $base!=".."){
+                        print "=>".str_replace("_Base.php",null,$base)."\n";
+                    }
+                }
+                print "################";
+                
+            break;
+            
+        }
+        
+    break;  
+  
     // Cria ação
     case 'create':
         
@@ -194,6 +315,11 @@ switch ($action){
                 exec("tar -xvf $_path_template/create/project.tar");
                 
             break;
+
+
+	     
+	    
+
             
         }
         
@@ -208,11 +334,22 @@ switch ($action){
             
             print "Utilize um dos comandos abaixo:\n";
             
-            print "~$ php lb.php create [controller] [name] \n\t=>Cria Controller com suas respectivas views\n\n";
-            print "~$ php lb.php create [action] [name] [controller] [^Descricao] \n\t=>Cria action a partir de um controle, com suas views\n\n";
-            print "~$ php lb.php create [base] [name] [^table] [^primary] \n\t=> Cria controlador de base de dados\n\n";
+            print "[CREATE]\n";
+            print "~$ php lb.php create controller [name] \n\t=>Cria Controller com suas respectivas views\n\n";
+            print "~$ php lb.php create action [name] [controller] [^Descricao] \n\t=>Cria action a partir de um controle, com suas views\n\n";
+            print "~$ php lb.php create base [name] [^table] [^primary] \n\t=> Cria controlador de base de dados\n\n";
+            print "~$ php lb.php create project \n\t=> Cria Projeto Liberty\n\n\n\n";
             
-            print "~$ php lb.php create project \n\t=> Cria Projeto Liberty\n\n";
+            print "[REMOVE]\n";
+            print "~$ php lb.php remove controller [name] \n\t=>Remove Controller com suas respectivas views\n\n";
+            print "~$ php lb.php remove base [name] \n\t=>Remove Base\n\n";
+            
+            print "[LIST]\n";
+            print "~$ php lb.php list controllers \n\t=> Lista controllers do projeto\n\n";
+            print "~$ php lb.php list actions [controller_name] \n\t=> Lista actions de um controller do projeto\n\n";
+            print "~$ php lb.php list bases \n\t=> Lista bases do projeto\n\n";
+            
+            
     break;
     
     
