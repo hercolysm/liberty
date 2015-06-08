@@ -269,7 +269,18 @@ $this->render("Index/outra.phtml");
 ```
 <br>
 
-
+<code><strong>$this->getMessage($text)</strong> => Mostra uma mensagem de alerta (Javascript) na tela</code>
+<br>
+Controller/Salvar_Controller.php
+```php
+public function salvar(){
+	// Da uma mensagem na tela
+	$this->getMessage("Salvo com sucesso");
+	// Redireciona a página
+	$this->redirect($this->url(array("controller"=>"index","action"=>"index")));
+}
+```
+<br>
 # Criando Base(Base para consulta em tabelas do banco de dados)
 Para criar base de dados onde realiza consulta na tabela do banco de dados use o seguinte código:
 <br>
