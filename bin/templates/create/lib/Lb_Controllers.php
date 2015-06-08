@@ -11,6 +11,8 @@ class Lb_Controllers{
     var $_print_layout = true;
     var $_head = null;
     var $log = array();
+    
+    
     public function __get($name){
         return $this->__data[$name];
     }
@@ -213,10 +215,17 @@ class Lb_Controllers{
         }else{ // Mostra mensagem de erro na página
             print "A página '$_views/$_page' não existe";
         }
-        
-        
-        
+       
     }
+    
+    /**
+     * Mensagem de alerta Javascript
+     * @param type $text Descrição da mensagem
+     */
+    public function getMessage($text = null){
+        print '<script type="text/javascript">alert("'.$text.'")</script>';
+    }
+    
     
 }
 
