@@ -233,7 +233,7 @@ switch ($action){
                             // Final do codigo
                             $_end = strrchr($_content_controller,"}");
                             // Conteudo do action (metodo)
-                            $_content_action= "\n\t/**\n\t* $desc\n\t**/\n\tpublic function $name(){}\n".$_end;
+                            $_content_action= "\n\t/**\n\t* $desc\n\t* @access index.php?go=$controller&action=$name\n\t**/\n\tpublic function $name(){}\n".$_end;
                             // Atualiza conteudo do controller
                             $_content_controller = str_replace($_end, $_content_action, $_content_controller);
                             
