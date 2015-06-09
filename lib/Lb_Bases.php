@@ -102,6 +102,7 @@ class Lb_Bases{
         $PDO = $this->_db;
         // Realiza exclusão
         $_consulta = $PDO->query("DELETE FROM `".$this->_name."` WHERE `".$this->_primary."`='$primary'");
+        return $_consulta;
     }
     
     /**
