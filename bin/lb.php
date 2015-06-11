@@ -31,6 +31,14 @@ function erro($msg = "ERRO"){
 $action = isset($argv[1]) ? $argv[1] : "help";
 switch ($action){ 
 
+    // Atualiza projeto
+    case 'update':
+	print "Atualizando\n";
+	copy($_path_template."/create/lib/Lb_Controllers.php",$cwd."/lib/Lb_Controllers.php");
+	copy($_path_template."/create/lib/Lb_Bases.php",$cwd."/lib/Lb_Bases.php");
+	print "Atualizado [OK]\n";
+    break;
+	
     // Remover
     case 'remove':
         
@@ -348,7 +356,9 @@ switch ($action){
             print "~$ php lb.php list controllers \n\t=> Lista controllers do projeto\n\n";
             print "~$ php lb.php list actions [controller_name] \n\t=> Lista actions de um controller do projeto\n\n";
             print "~$ php lb.php list bases \n\t=> Lista bases do projeto\n\n";
-            
+           
+	    print "[UPDATE]\n";
+	    print "~$ php lb.php update \n\t=>Atualiza lib/ do projeto atual\n\n"; 
             
     break;
     
