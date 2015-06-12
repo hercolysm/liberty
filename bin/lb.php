@@ -36,7 +36,7 @@ switch ($action){
 	print "Atualizando\n";
 	//copy($_path_template."/create/lib/Lb_Controllers.php",$cwd."/lib/Lb_Controllers.php");
 	//copy($_path_template."/create/lib/Lb_Bases.php",$cwd."/lib/Lb_Bases.php");
-	shell_exec("cp -r $path_template/create/lib/* $cwd/lib/");
+	shell_exec("cp -r ".$_path_template."/create/lib/* ".$cwd."/lib/");
 	print "Atualizado [OK]\n";
     break;
 	
