@@ -115,5 +115,24 @@ class Lb_Bases{
         return $_consulta->fetchAll();
     }
     
+    
+    
+    /**
+     * Multiplas tabelas
+     * @param \Lb_Base $Base Base
+     * @param String $id nome do campo que compara com a chave primaria da classe child
+     * @param String chave primaria comparadora da classe parent (Caso vaizio pega chave padrão)
+     * @return \Lb_Bases_Multi
+     */
+    public function multi($Base,$id,$id_primary = null){
+        $multi = new  Lb_Bases_Multi();
+        $multi->primary_child = $id;
+        $multi->primary_parent = empty($id_primary) ? $this->_primary : $id_primary;        
+        $multi->table_child = $Base->_name;
+        $multi->table_parent = $this->_name;        
+        $multi->_db = $this->_db;
+        return $multi;
+    }
+    
 }
 
