@@ -318,10 +318,15 @@ switch ($action){
             
             // Novo projeto
             case 'project':
-                
+                $nome = isset($argv[3]) ? $argv[3] : ".";
+		if(file_exists($nome)==false){
+			print "Criando Diretorio ";
+			mkdir($nome);
+			print "[OK]\n";
+		}
                 print "Desempacotando arquivos necessários [OK]\n";
                 // Despacota arquivos
-                exec("tar -xvf $_path_template/create/project.tar");
+                exec("tar -xvf $_path_template/create/project.tar -C $nome");
                 
             break;
 
