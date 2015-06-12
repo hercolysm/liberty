@@ -22,6 +22,8 @@ A estrutura do liberty é a seguinte:
 </ul>
 
 
+
+
 # Configuração por parte do desenvolvedor
 É aconselhavel que você coloque o diretório liberty/bin no "PATH" do seu sistema operacional
 <br>
@@ -365,7 +367,7 @@ public index(){
 <br>
 Exemplo:
 ```php
-public index(){
+public function index(){
 	$this->MinhaBase->delete(1); // Deleta registro com a chave primaria 1
 }
 ```
@@ -374,7 +376,7 @@ public index(){
 <br>
 Exemplo:
 ```php
-public index(){
+public function index(){
 	$consulta = $this->MinhaBase->query("Select * from lis_usuarios");
 	$rows = $consulta->rowCount(); // O mesmo que count($this->MinhaBase->fetch());
 	$fetch = $consulta->fetchAssoc(PDO::FETCH_ASSOC); // O mesmo que $this->MinhaBase->fetch()[0];
@@ -382,3 +384,45 @@ public index(){
 	$this->MinhaBase->query("DELETE FROM lis_usuarios WHERE id_usuario=1"); // O mesmo que $this->MinhaBase->delete(1)
 }
 ```
+<br><br>
+
+<strong>Utilizando multiplas tabelas</strong><br>
+<code>$this->multi(Lb_Base,'coluna_filha','coluna_mae')</code>
+```php
+public function index(){
+	/* Select * from numeros; 
+	###################################################
+	#                 numeros 			  #
+	###################################################
+	| id_numero(PK) | id_contato | numero | descricao |
+	---------------------------------------------------
+	|    1          |     1      | 8140   |           |
+	###################################################
+	*/
+	$Numeros = new Numeros_Base($this->_pdo);
+	/* Select * from contatos;
+	##############################
+	#	   contatos 	     #	
+	##############################
+	| id_contato(PK)|     nome   |
+	------------------------------
+	|     1         |     Lucas  |
+	##############################*/
+	$Contatos = new Contatos_Base($this->_pdo);
+	
+	// O segundo argumento é o campo de comparação da tabela filha(Numeros) 
+	// e o terceiro é a chave primaria da tabela pai(Contatos), caso não seja passado 
+	// o terceiro argumento é definido como a chave primaria 
+	$multi = $Contatos->multi($Numeros,'id_contato','id_contato');
+	
+	// SELECT * FROM contatos,numeros WHERE contatos.id_contato=numeros.id_contato AND (nome LIKE '%Lucas%');
+	$consulta = $muli->fetch("nome LIKE '%Lucas%'");
+	/* Resultado:
+	################################################################################
+	| id_contato(PK)|     nome   | id_numero(PK) | id_contato | numero | descricao |
+	--------------------------------------------------------------------------------
+	|     1         |     Lucas  |    1          |     1      | 8140   |           |
+	#################################################################################
+	*/
+	
+}
