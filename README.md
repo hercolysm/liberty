@@ -390,6 +390,7 @@ public function index(){
 <code>$this->multi(Lb_Base,'coluna_filha','coluna_mae')</code>
 ```php
 public function index(){
+	/* Select * from numeros; 
 	###################################################
 	#                 numeros 			  #
 	###################################################
@@ -397,14 +398,16 @@ public function index(){
 	---------------------------------------------------
 	|    1          |     1      | 8140   |           |
 	###################################################
+	*/
 	$Numeros = new Numeros_Base($this->_pdo);
+	/* Select * from contatos;
 	##############################
 	#	   contatos 	     #	
 	##############################
 	| id_contato(PK)|     nome   |
 	------------------------------
 	|     1         |     Lucas  |
-	##############################
+	##############################*/
 	$Contatos = new Contatos_Base($this->_pdo);
 	
 	// O segundo argumento é o campo de comparação da tabela filha(Numeros) 
@@ -414,6 +417,12 @@ public function index(){
 	
 	// SELECT * FROM contatos,numeros WHERE contatos.id_contato=numeros.id_contato AND (nome LIKE '%Lucas%');
 	$consulta = $muli->fetch("nome LIKE '%Lucas%'");
-	
+	/* Resultado:
+	################################################################################
+	| id_contato(PK)|     nome   | id_numero(PK) | id_contato | numero | descricao |
+	--------------------------------------------------------------------------------
+	|     1         |     Lucas  |    1          |     1      | 8140   |           |
+	#################################################################################
+	*/
 	
 }
