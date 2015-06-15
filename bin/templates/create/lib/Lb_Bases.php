@@ -106,6 +106,22 @@ class Lb_Bases{
     }
     
     /**
+     * Realiza delete com um fetch
+     * @param String $where Condições para exclusão
+     */
+    public function deleteWhere($where = null){
+        // Inicializa PDo
+        $PDO = $this->_db;
+        // WHere
+        $sql_where = empty($where) ? null : " WHERE $where";
+        
+        // Realiza consulta
+        $_consulta = $PDO->query("DELETE FROM `".$this->_name."` $sql_where ");
+        
+        return $_consulta;
+    }
+    
+    /**
      * Realiza query
      * @param String $sql SQL
      * @return Array Array contendo as linhas encontradas
