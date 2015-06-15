@@ -371,6 +371,16 @@ public function index(){
 	$this->MinhaBase->delete(1); // Deleta registro com a chave primaria 1
 }
 ```
+```
+<br><br>
+<code>$this->deleteWhere(PRIMARY) => Realiza delete com uma condição</code>
+<br>
+Exemplo:
+```php
+public function index(){
+	$this->MinhaBase->deleteWhere("nome='Lucas'"); // Deleta registros com a condição do nome seja igual a Lucas
+}
+```
 <br><br>
 <code>$this->query(STRIng) => Realiza consulta PDO normal, retornando um resource</code>
 <br>
