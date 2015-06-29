@@ -9,6 +9,7 @@ class Lb_Bases{
     protected $_primary = null;
     protected $_name = null;
     protected $_db;
+    public $_sql_resp = null;
     
     /**
      * Inicia configuração PDO
@@ -49,7 +50,7 @@ class Lb_Bases{
         $bind = $this->bind($col);
                 
         $sql = "UPDATE `".$this->_name."` SET ".implode(",",$bind)." WHERE `".$this->_primary."`='".$id."'";
-        
+     	$this->_sql_resp = $sql;	   
         $this->_db->query($sql);
         return $sql;
         
@@ -68,6 +69,7 @@ class Lb_Bases{
             array_push($valores,$value);
         }
         $sql = "INSERT INTO `".$this->_name."` (`".implode("`,`",$colunas)."`) VALUES('".implode("','",$valores)."')";
+	$this->_sql_resp = $sql;
         $this->_db->query($sql);
         return $this->_db->lastInsertId();
     }
@@ -90,6 +92,7 @@ class Lb_Bases{
         }
         // Realiza consulta
         $_consulta = $PDO->query("SELECT * FROM `".$this->_name."` ".$where." ".$order);
+	$this->_sql_resp = "SELECT * FROM `".$this->_name."` ".$where." ".$order;
         return $_consulta->fetchAll();
     }
     
@@ -102,6 +105,7 @@ class Lb_Bases{
         $PDO = $this->_db;
         // Realiza exclusão
         $_consulta = $PDO->query("DELETE FROM `".$this->_name."` WHERE `".$this->_primary."`='$primary'");
+	$this->_sql_resp = "DELETE FROM `".$this->_name."` WHERE `".$this->_primary."`='$primary'";
         return $_consulta;
     }
     
@@ -117,7 +121,7 @@ class Lb_Bases{
         
         // Realiza consulta
         $_consulta = $PDO->query("DELETE FROM `".$this->_name."` $sql_where ");
-        
+     	$this->_sql_resp = "DELETE FROM `".$this->_name."` $sql_where ";   
         return $_consulta;
     }
     
@@ -131,6 +135,13 @@ class Lb_Bases{
         return $_consulta->fetchAll();
     }
     
+    /**
+    * Retorna SQL de ultima execução
+    * @return String
+    */
+    public function getSQL(){
+	return $this->_sql_resp;
+    }
     
     
     /**
@@ -149,6 +160,9 @@ class Lb_Bases{
         $multi->_db = $this->_db;
         return $multi;
     }
+
+
+	
     
 }
 
