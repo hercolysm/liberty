@@ -382,6 +382,19 @@ public function index(){
 }
 ```
 <br><br>
+<code>$this->getSQL() => Retorna SQL da ultima execução</code>
+<br>
+Exemplo:
+```php
+public function index(){
+     $this->MinhaBase->fetch("nome='Lucas'");
+     print $this->MinhaBase->getSQL(); // Retorna SELECT * FROM tabela WHERE nome='Lucas';
+     $this->MinhaBase->insert(array("nome"=>"Bernardo"));
+     print $this->MinhaBase->getSQL(); // Retorna INSERT INTO tabela (nome) VALUES('Bernardo');
+     print $this->MinhaBase->delete(1);
+     print $this->MinhaBase->getSQL(); // Retorna DELETE FROM tabela WHERE id=1;
+```
+<br><br>
 <code>$this->query(STRIng) => Realiza consulta PDO normal, retornando um resource</code>
 <br>
 Exemplo:
