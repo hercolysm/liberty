@@ -376,7 +376,6 @@ public function index(){
 <code>$this->deleteWhere(PRIMARY) => Realiza delete com uma condição</code>
 <br>
 Exemplo:
-```php
 public function index(){
 	$this->MinhaBase->deleteWhere("nome='Lucas'"); // Deleta registros com a condição do nome seja igual a Lucas
 }
@@ -386,6 +385,7 @@ public function index(){
 <br>
 Exemplo:
 ```php
+...
 public function index(){
      $this->MinhaBase->fetch("nome='Lucas'");
      print $this->MinhaBase->getSQL(); // Retorna SELECT * FROM tabela WHERE nome='Lucas';
@@ -393,6 +393,8 @@ public function index(){
      print $this->MinhaBase->getSQL(); // Retorna INSERT INTO tabela (nome) VALUES('Bernardo');
      print $this->MinhaBase->delete(1);
      print $this->MinhaBase->getSQL(); // Retorna DELETE FROM tabela WHERE id=1;
+     }
+     ...
 ```
 <br><br>
 <code>$this->query(STRIng) => Realiza consulta PDO normal, retornando um resource</code>
