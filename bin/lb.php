@@ -21,6 +21,8 @@ $_path_controller = $cwd."/controller";
 $_path_views = $cwd."/views";
 // Diretorio de bases
 $_path_base = $cwd."/bases";
+// Diretorio de plugins
+$_path_plugins = $_path."/plugins";
 
 
 function erro($msg = "ERRO"){
@@ -339,6 +341,59 @@ switch ($action){
         
     break;
     
+    // Plugins
+    case 'plugin':
+        
+        $command = isset($argv[2]) ? $argv[2] : null;
+        
+        
+        switch($command):
+            
+            
+            case 'add':
+                $plugin = isset($argv[3])  ? $argv[3] : null;
+                $file = $_path_plugins."/".$plugin.".zip";
+                // Pasta assests
+                $assets = $cwd."/public/assets";
+                if(file_exists($file)){
+                    
+                    // Verifica se diretorio  assets  não existe para poder criar
+                    if(file_exists($assets)==false){
+                        mkdir($assets);
+                    }
+                    
+                    exec("cd $assets; unzip $file");
+                    
+                    print "Plugin adicionado com sucesso!\n";
+                    
+                }else{
+                    erro($plugin." não existe! Tente usar lb.php plugin list");
+                }
+                
+            break;
+            default:
+            case 'list':
+                
+                $opendir = opendir($_path_plugins);
+                print "----------------------------------------\n";
+                while($read = readdir($opendir)){
+                    // Se é um plugin
+                    if(strstr($read,".zip")){
+                        print str_replace(".zip",null,$read)."\n";
+                    }
+                }
+                print "----------------------------------------\n";
+                print "Use: lb.php plugin add NOME_DO_PLUGIN\n";
+                
+            break;
+            
+            
+            
+        endswitch;
+        
+        
+    break;
+    
     
     default:
     case 'help':
@@ -365,6 +420,10 @@ switch ($action){
            
 	    print "[UPDATE]\n";
 	    print "~$ php lb.php update \n\t=>Atualiza lib/ do projeto atual\n\n"; 
+        
+        print "[PLUGIN]\n";
+        print "~$ php lb.php plugin list \n\t=>Lista plugins disponiveis\n\n";
+        print "~$ php lb.php plugin add [name]\n\t=> Adiciona plugin ao projeto na pastas public/assets/\n\n";
             
     break;
     
