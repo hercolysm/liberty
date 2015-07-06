@@ -298,7 +298,11 @@ Para chamar uma base utilize a seguinte forma (é aconselhavel iniciar as bases 
 	class meuControlador_Controller extends Lb_Controllers{
 		var $MinhaBase;
 		public init(){
-			$this->MinhaBase = new minhaBase($this->_pdo);
+			$this->MinhaBase = new minhaBase_Base($this->_pdo);
+			// ou (sem passar o parametro de conexão, pois utiliza o padrão)
+			$this->MinhaBase = new minhaBase_Base();
+			// ou (passando a constante criada por lb.php base add)
+			$this->MinhaBase = new Lb_Bases(Lb_Tables::$minhaBase);
 		}
 		public index(){
 			count ($this->MinhaBase->fetch()); // Retorna numeros de linhas
