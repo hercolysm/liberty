@@ -13,10 +13,22 @@ class Lb_Bases{
     
     /**
      * Inicia configuração PDO
-     * @param PDO $db configuração PDO
+     * @param PDO|Array $conf configuração PDO | Configuração de tabela e chave primaria
+     * @param PDO $pdo configuração de PDO caso seja enviado um array no primeiro parametro
      */
-    public function __construct($db = null) {
-        $this->_db = $db;
+    public function __construct($conf = null,$pdo = null) {
+        if(is_array($conf)){
+            $this->_name = $conf["name"];
+            $this->_primary = $conf["primary"];
+            $conf = $pdo;
+        }
+        // Caso o PDO estaja como vazio pega valor padrão de conexão
+        if($conf==null){
+            $conf = $GLOBALS['PDO'];
+        }
+        
+        $this->_db = $conf;
+        
     }
     
     /**

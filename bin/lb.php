@@ -395,6 +395,52 @@ switch ($action){
     break;
     
     
+            case 'base':
+                 $command = isset($argv[2]) ? $argv[2] : null;
+                
+                    switch($command){
+                        case 'add':
+                            
+                            $nome = _tratar($argv[3]);
+                            $tabela = _tratar($argv[4]);
+                            $primary = _tratar($argv[5]);
+                            $Nome = ucwords($nome);
+                            // Codigo
+                            $code = "\n\tpublic static \$".$Nome." = array('name'=>'$tabela','primary'=>'$primary');\n}";
+                            
+                            $dir = $cwd."/lib/Lb_Tables.php";
+                            
+                            @include_once $dir;
+                            
+                            if(empty(trim(shell_exec("cat $dir | grep \"public static \$\\$Nome\"")))==false){
+                                erro("A tabela $Nome ja esta definida");
+                            }
+                            if(empty(trim(shell_exec("cat $dir | grep \"array('name'=>'$tabela'\"")))==false){
+                                erro("A tabela $tabela ja esta definida");
+                            }
+                            
+                            
+                             // Lê controller
+                            $_file = file($dir);
+                            // Conteudo Controller
+                            $_content = implode("",$_file);
+                            
+                            // Final do codigo
+                            $_end = strrchr($_content,"}");
+                            
+                            // Atualiza conteudo do controller
+                            $_content_final = str_replace($_end, $code, $_content);
+                            
+                            $_c = fopen($dir,"w+");
+                            fwrite($_c, $_content_final);
+                            fclose($_c);
+                            
+                        break;
+                    }
+                
+            break;
+    
+    
     default:
     case 'help':
             print "Binário de gerenciador de Projeto Liberty\n";
@@ -417,6 +463,9 @@ switch ($action){
             print "~$ php lb.php list controllers \n\t=> Lista controllers do projeto\n\n";
             print "~$ php lb.php list actions [controller_name] \n\t=> Lista actions de um controller do projeto\n\n";
             print "~$ php lb.php list bases \n\t=> Lista bases do projeto\n\n";
+            
+            print "[BASE]\n";
+            print "~$ php lb.php base add [nome] [tabela] [primaria]\n\t=> Cria uma constante para trabalhar com a base, sem precisar criar arquivo\n\n";
            
 	    print "[UPDATE]\n";
 	    print "~$ php lb.php update \n\t=>Atualiza lib/ do projeto atual\n\n"; 
@@ -434,5 +483,14 @@ switch ($action){
 
 
 print "\n";
+
+
+/**
+ * Trata string
+ * @param String $strT
+ */
+function _tratar($str){
+    return isset($str) ? $str : null;
+}
 
 ?>
