@@ -408,7 +408,7 @@ switch ($action){
                             // Codigo
                             $code = "\n\tpublic static \$".$Nome." = array('name'=>'$tabela','primary'=>'$primary');\n}";
                             
-                            $dir = $cwd."/lib/Lb_Tables.php";
+                            $dir = $cwd."/bases/Lb_Tables.php";
                             
                             @include_once $dir;
                             

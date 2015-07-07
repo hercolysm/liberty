@@ -25,7 +25,11 @@ Autoload de classes
 function __autoload($class_name) {
 	global $_path_controller,$_path_lib,$_path_bases;
 	$dir = $_path_controller."/".$class_name.".php";
-        // Verifica se class_name contem Lb(Liberty)
+        if($class_name=="Lb_Tables"){
+            require_once $_path_bases."/Lb_Tables.php";
+            return ;
+        }
+	// Verifica se class_name contem Lb(Liberty)
         if(strstr($class_name,"Lb_")){
             require_once $_path_lib."/".$class_name.".php";
             return ;
@@ -34,7 +38,7 @@ function __autoload($class_name) {
             require_once $_path_bases."/".$class_name.".php";
             return ;
         }
-        
+	       
 	if(file_exists($dir)){
 		require_once $dir;
 	}else{
