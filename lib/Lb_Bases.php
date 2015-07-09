@@ -174,6 +174,107 @@ class Lb_Bases{
     }
 
 
+    
+    
+    ####################### Métodos de construção de telas ###########################
+    
+    
+    /**
+     * Cria opções do selectbox
+     * @param Fetch $context 
+     * @param String $text Texto Exibido
+     * @param String $value Campo que deve ficar como valor
+     * @param String $selected Opção selecionado
+     * @example getOptions($Table->fetch(),"Nome:@nome@ Sobrenome:@sobronome@","id_nome",1); Imprime <option value=ID_DA_LINHA>Nome:NOME ATUAL Sobrenome:SOBRENOME</option>
+     */
+    public function getOptions($context = null,$text = null,$value = null ,$selected = null){
+        
+        if(is_array($context)==false){
+            $context = $this->fetch();
+        }
+        
+        // Se foi enviado fetch
+        if(is_array($context)){ 
+            // Caso valor seja vazio
+            $value = empty($value) ? $this->_primary : $value;
+            
+            foreach($context as $retorno):
+                $text_convert = self::getListSeparaWithSpace($text, $retorno); 
+                
+                // Valor selecionado
+                $sel = ($retorno["$value"]==$selected) ? 'selected' : null;
+                
+                print '<option value="'.$retorno["$value"].'" '.$sel.' >'.$text_convert.'</option>';
+                
+            endforeach;
+            
+        }
+        
+        
+    }
+    
+    /**
+     * Cria linhas da tabela com ou sem o cabeçalho (caso enviado)
+     * @param Fetch $context Contexto
+     * @param Array $head Conteudo do cabeçalho
+     * @param Array $content Conteudo da tabela
+     */
+    public function getRowsTable($context = null,$head = array(),$content = array()){
+         if(is_array($context)==false){
+            $context = $this->fetch();
+        }
+        
+        // Verifica se foi enviado cabeçalho
+        if(count($head)>0){
+            print '<thead>';
+                print '<tr>';
+                foreach($head as $value):
+                        print '<th>'.$value.'</th>';
+                endforeach;
+                print '</tr>';
+            print '</thead>';
+        }
+        
+        print '<tbody>';
+        foreach($context as $retorno):
+            print '<tr>';
+                // Le cada coluna
+                foreach($content as $value):
+                    // Converte colunas para consultando de tabela
+                    $text = self::getListSeparaWithSpace($value, $retorno); 
+                    // Imprime valor
+                    print '<td>'.$text.'</td>';
+                endforeach;
+            print '</tr>';
+        endforeach;
+        print '</tbody>';
+    }
+    
+    /**
+     * Retorna lista com as colunas que contem @str@
+     * @param String $str
+     * @param PDO::Fetch $fetch
+     * @return Array
+     */
+    private static function getListSeparaWithSpace($str,$fetch){
+        $_lista = array();
+        $array_result = array();
+        preg_match_all("/\@[a-zA-Z0-9\_\-]*\@/",$str,$array_result);
+        // Lista de nomes
+        $_lista = $array_result[0];
+        
+        $texto = $str;
+        
+        foreach($_lista as $nome):
+            $value = str_replace("@",null,$nome);
+            if(isset($fetch["$value"])){
+                $texto = str_replace($nome,$fetch["$value"],$texto);
+            }
+        endforeach;
+        
+        return $texto;
+        
+    }
 	
     
 }
