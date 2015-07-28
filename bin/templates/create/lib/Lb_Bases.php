@@ -127,9 +127,23 @@ class Lb_Bases{
     public function delete($primary){
         // Inicializa PDo
         $PDO = $this->_db;
+        
+        // Caso tenha enviado um array cria um bind
+        if(is_array($primary)){
+            $where = implode(" AND ",$this->bind($primary));            
+        }
+        // Caso seja enviado somente um inteiro então define-se como chave primaria
+        elseif(is_int($primary)){
+            $where = "`".$this->_primary."`='".$primary."'";
+        }
+        // Caso seja uma string entende que é uma string de condições
+        else{
+            $where = $primary;
+        }
+        
         // Realiza exclusão
-        $_consulta = $PDO->query("DELETE FROM `".$this->_name."` WHERE `".$this->_primary."`='$primary'");
-	$this->_sql_resp = "DELETE FROM `".$this->_name."` WHERE `".$this->_primary."`='$primary'";
+        $_consulta = $PDO->query("DELETE FROM `".$this->_name."` WHERE $where");
+        $this->_sql_resp = "DELETE FROM `".$this->_name."` WHERE `".$this->_primary."`='$primary'";
         return $_consulta;
     }
     
