@@ -346,7 +346,11 @@ public index(){
 	"idade"=>15
 	);
 	// Reliza edição do id =1
-	$this->MinhaBase->update($array,1);
+	$this->MinhaBase->update($array,1); // UPDATE table SET idade=15 WHERE id=1;
+	// Ou
+	$this->MinhaBase->update($array,array("id"=>1,"idade"=>25)); // UPDATE table SET idade=15 WHERE id=1 AND idade=25
+	// Ou
+	$this->MinhaBase->update($array,"id=1 AND idade=25 AND nome LIKE '%us%'"); // UPDATE table SET idade=15 WHERE id=1 AND idade=25 AND nome LIKE '%us%'
 }
 ```
 <br><br>
@@ -372,12 +376,18 @@ public index(){
 Exemplo:
 ```php
 public function index(){
-	$this->MinhaBase->delete(1); // Deleta registro com a chave primaria 1
+	// Deleta registro com a chave primaria 1 
+	$this->MinhaBase->delete(1); //DELETE FROM table WHERE id=1;
+	// OU
+	$this->MinhaBase->delete(array("nome"=>"Lucas")); // DELETE FROM table WHERE nome='Lucas';
+	// Ou
+	$this->MinhaBase->delete("nome LIKE '%s%'"); // DELETE FROM table WHERE nome LIKE '%s%';
+	
 }
 ```
 ```
 <br><br>
-<code>$this->deleteWhere(PRIMARY) => Realiza delete com uma condição</code>
+<code>$this->deleteWhere(PRIMARY) => Realiza delete com uma condição (Não utilizado mais)</code>
 <br>
 Exemplo:
 public function index(){
