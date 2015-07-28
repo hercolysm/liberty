@@ -52,16 +52,28 @@ class Lb_Bases{
        
     }
     
+    
     /**
      * Update
      * @param Array $col Colunas com os valores
-     * @param int $id Inteiro Primário
+     * @param int|Array|String $id Inteiro Primário
      */
     public function update($col = array(),$id = 0){
         // Cria bind de colunas com valores
         $bind = $this->bind($col);
-                
-        $sql = "UPDATE `".$this->_name."` SET ".implode(",",$bind)." WHERE `".$this->_primary."`='".$id."'";
+        
+        // Caso tenha enviado um array cria um bind
+        if(is_array($id)){
+            $where = implode(" AND ",$this->bind($id));            
+        }
+        // Caso seja enviado somente um inteiro então define-se como chave primaria
+        elseif(is_int($id)){
+            $where = "`".$this->_primary."`='".$id."'";
+        }else{
+            $where = $id;
+        }
+        
+        $sql = "UPDATE `".$this->_name."` SET ".implode(",",$bind)." WHERE $where";
      	$this->_sql_resp = $sql;	   
         $this->_db->query($sql);
         return $sql;
