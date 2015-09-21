@@ -226,6 +226,31 @@ class Lb_Controllers{
         print '<script type="text/javascript">alert("'.$text.'")</script>';
     }
     
+      /**
+     * Criptografado
+     * @param type $value
+     * @return type
+     */
+    public  function setCrypty($value){
+        
+        $str = "liberty@$@".substr(md5($value),0,5)."@$@$value@$@".rand(0,100)."@$@".substr(md5(rand(0,30)),0,5);
+        
+        return base64_encode($str);
+        
+    }
+    
+    /**
+     * Retorna descriptografado
+     * @param type $value
+     * @return type
+     */
+    public  function getCrypty($value){
+        $str = base64_decode($value);
+        
+        $str_explode = explode("@$@",$str);
+        $value = $str_explode[2];
+        return $value;
+    }
     
 }
 
