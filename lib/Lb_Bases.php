@@ -95,24 +95,67 @@ class Lb_Bases {
 
     /**
      * Retorna linha por um fetch
-     * @param string $where Condição
+     * @param mixed $where Condição
      * @param string $order Ordem
+     * @param mixed $cols Colunas que devem ser exibidas (Array,String)
+     * @param int $limit limite
+     * @param mixed $group Agrupamento de consulta (Array,String)
      * @return Array Array Contendo todos os elementos encontrados
      */
-    public function fetch($where = null, $order = null) {
+    public function fetch($where = null, $order = null, $cols = null ,$limit = null, $group = null) {
         // Inicializa PDO
         $PDO = $this->_db;
         // Caso tenha sido digitado algo no where
-        if (!empty($where)) {
-            $where = " WHERE " . $where;
+        // Caso tenha sido digitado algo no where
+        if (is_array($where)) {
+            $where = "WHERE ".implode(" AND ", $this->bind($where));
+        }
+        // Caso seja enviado somente um inteiro então define-se como chave primaria
+        elseif (is_numeric($where)) {
+            $where = "WHERE `" . $this->_primary . "`='" . $where . "'";
+        } else {
+            if(!empty($where)) {
+                $where = "WHERE ".$where;
+            }
         }
         if (!empty($order)) {
             $order = "ORDER BY " . $order;
         }
+
+        // Verifica se coloca limit
+        if(is_numeric($limit) && $limit>0 && !empty($limit)){
+            $limit = "LIMIT $limit";
+        }
+
+        /**
+         * Colunas
+         */
+        // Verifica se é um array para transformar em string
+        if(is_array($cols)){
+            $cols = implode(",",$cols);
+        }elseif(empty($cols)){
+            $cols = " * ";
+        }
+
+        /**
+         * Agrupamento (Group By)
+         */
+        // Verifica se é um array para transformar em string
+        if(is_array($group)){
+            $group = " GROUP BY ".implode(",",$group);
+        }elseif(!empty($group)){
+            $group = "GROUP BY ".$group;
+        }
+
+
+        // SQL
+        $SQL = "SELECT $cols FROM `" . $this->_name . "` " . $where . " " . $order." ".$group." ".$limit;
         // Realiza consulta
-        $_consulta = $PDO->query("SELECT * FROM `" . $this->_name . "` " . $where . " " . $order);
-        $this->_sql_resp = "SELECT * FROM `" . $this->_name . "` " . $where . " " . $order;
-        return $_consulta->fetchAll();
+        $_consulta = $PDO->query($SQL);
+        // Salva resposta
+        $this->_sql_resp = $SQL;
+        // Retorna valores
+        return $_consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
