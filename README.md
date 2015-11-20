@@ -465,3 +465,16 @@ public function index(){
 	*/
 	
 }
+```
+<br><br>
+
+<h1>Criptografia de dados:</h1>
+
+<code>$this->setCrypty("TEXTO") | $this->getCrypty("VALOR") => Criptografa e discriptografa utilizando base64 (Utilizar para proteger id's em metodos GET)</code>
+```php
+$texto = "Ola Mundo";
+$valor = $this->setCrypty($texto);
+$resposta = $this->getCrypty($valor);
+echo "$resposta = $text";
+```
+
