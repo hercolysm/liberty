@@ -317,10 +317,20 @@ Para chamar uma base utilize a seguinte forma (é aconselhavel iniciar as bases 
 Exemplo:
 ```php
 public index(){
+     /**
+		Parametros
+	     * @param mixed $where Condição
+	     * @param string $order Ordem
+	     * @param mixed $cols Colunas que devem ser exibidas (Array,String)
+	     * @param int $limit limite
+	     * @param mixed $group Agrupamento de consulta (Array,String)
+	     
+        */
 	$this->MinhaBase->fetch(); // Todas as linhas
 	$this->MinhaBase->fetch("nome='Lucas' AND sobrenome='Brito'"); // Somente os que contiverem nome e o sobrenome
 	$this->MinhaBase->fetch("idade=15","idade desc,sexo asc"); // Todas as idades 15 e ordenando por idade e sexo
 	$this->MinhaBase->fetch(null,"idade desc"); => Todas as linhas ordenando por idade
+	$this->MinhaBase->fetch(null,"idade desc","nome,sobrenome,idade",10,"idade"); // Realiza consulta com todos parametros acima
 }
 ```
 <br><br>
