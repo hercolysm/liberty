@@ -330,7 +330,8 @@ public index(){
 	$this->MinhaBase->fetch("nome='Lucas' AND sobrenome='Brito'"); // Somente os que contiverem nome e o sobrenome
 	$this->MinhaBase->fetch("idade=15","idade desc,sexo asc"); // Todas as idades 15 e ordenando por idade e sexo
 	$this->MinhaBase->fetch(null,"idade desc"); => Todas as linhas ordenando por idade
-	$this->MinhaBase->fetch(null,"idade desc","nome,sobrenome,idade",10,"idade"); // Realiza consulta com todos parametros acima
+	$this->MinhaBase->fetch(null,"idade desc","nome,sobrenome,idade",10,"idade"); // Realiza consulta com todos parametros acima 
+	// SELECT nome,sobrenome,idade FROM minhabase LIMIT 10 GROUP by idade;
 }
 ```
 <br><br>
