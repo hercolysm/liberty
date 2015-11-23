@@ -312,7 +312,7 @@ Para chamar uma base utilize a seguinte forma (é aconselhavel iniciar as bases 
 ```
 # Metodos utilizados por Lb_Bases
 
-<code>$this->MinhaBase->fetch($where,$order) => Retorna todas as linhas (PDO::fetchAll()) da tabela (Caso não seja passado nenhum comando no primeiro argumento $where)</code>
+<code>$this->MinhaBase->fetch($where,$order,$cols,$limit,$group) => Retorna todas as linhas (PDO::fetchAll(PDO::FETCH_ASSOC)) da tabela (Caso não seja passado nenhum comando no primeiro argumento $where)</code>
 <br>
 Exemplo:
 ```php
@@ -331,7 +331,7 @@ public index(){
 	$this->MinhaBase->fetch("idade=15","idade desc,sexo asc"); // Todas as idades 15 e ordenando por idade e sexo
 	$this->MinhaBase->fetch(null,"idade desc"); => Todas as linhas ordenando por idade
 	$this->MinhaBase->fetch(null,"idade desc","nome,sobrenome,idade",10,"idade"); // Realiza consulta com todos parametros acima 
-	// SELECT nome,sobrenome,idade FROM minhabase LIMIT 10 GROUP by idade;
+	// SELECT nome,sobrenome,idade FROM minhabase GROUP by idade  LIMIT 10;
 }
 ```
 <br><br>
