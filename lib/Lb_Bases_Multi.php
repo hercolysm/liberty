@@ -20,7 +20,7 @@ class Lb_Bases_Multi extends Lb_Bases{
     var $_name;
     var $_primary;
     
-    public function fetch($where = null, $order = null){
+    public function fetch($where = null, $order = null, $cols = NULL, $limit = NULL, $group = NULL){
         
         $pdo = $this->_db;
         
